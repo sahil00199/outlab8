@@ -7,7 +7,7 @@ zip = ZipFile(name)
 for line in file:
 	try:
 		zip.extractall(pwd = line.split()[0].encode('utf-8'))
-		print(line)
+		print(line.split()[0])
 		break
 	except:
 		#print("not :" , line)
