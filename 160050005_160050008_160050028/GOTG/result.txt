@@ -1,0 +1,28 @@
+The POST request that I sent returned the following object (of type byte):
+b'\tHere is the Vault code: 127f44f4a61c0a94e1f300c2d78f1624'
+
+We can decode this using the decode function and obtain the key 127f44f4a61c0a94e1f300c2d78f1624
+(Both of these have been printed to the standard output)
+ 
+ ========================================================================================
+
+We then run ./vault 127f44f4a61c0a94e1f300c2d78f1624
+to get the following output:
+
+Here is your Orb: 
+ /___/\
+//o  \_\
+\\  // /
+ \\ / /
+  \X /
+   \/
+
+==========================================================================================
+
+Yondu is able to filter requests using HTTP headers: specifically the User-Agent Header. This header basically contains information about the way in the which the request was sent.
+For example, if we send a request from a browser (say firefox) the User-Agent will be as follows:  'User-Agent':'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11'
+However, if we send it using the urllib the User-Agent is defined as: 'User-Agent' : 'Python-urllib/3.5', where 3.5 is the version of python being used. 
+To confirm this, we can change the HTTP header of the request manually, using an additional argument to the Request function as follows:
+req = request.Request("https://www.cse.iitb.ac.in/~rohitrango/outlab/entrance.php", data = dataEncoded, headers={'User-Agent':'Python-urllib/3.5'})
+If the 'User-Agent' is set to 'Firefox/5.0', the following message is returned: '\tNice try h4ck3r, but you need to be better than this to get the Orb. ;)\n'.
+This confirms our guess that the requests are filtered using the User-Agent HTTP header
